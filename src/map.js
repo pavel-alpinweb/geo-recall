@@ -45,9 +45,48 @@ function init() {
                     // В качестве контента балуна задаем строку с адресом объекта.
                     balloonContent: 
                     `
-                    <div class="container">
-                        <h3 class="heading">${firstGeoObject.getAddressLine()}</h3>
+                    <div class="recall">
+                    <header class="recall__header">
+                        <img src="/src/img/header-marker.png" alt="marker">
+                        <span class="address">${firstGeoObject.getAddressLine()}</span>
+                        <div class="close">
+                            <img src="/src/img/close.png" alt="close">
+                        </div>
+                    </header>
+                    <div class="recall__content">
+                        <div class="recall__list">
+                            <ul>
+                                <li>
+                                    <span class="recall__author">svetlana</span>
+                                    <span class="recall__place">Шоколадница <span class="recall__date">13.12.2015</span></span>
+                                    <p class="recall__text">Очень хорошее место!</p>
+                                </li>
+                                <li>
+                                    <span class="recall__author">svetlana</span>
+                                    <span class="recall__place">Шоколадница <span class="recall__date">13.12.2015</span></span>
+                                    <p class="recall__text">Очень хорошее место!</p>
+                                </li>
+                                <li>
+                                    <span class="recall__author">svetlana</span>
+                                    <span class="recall__place">Шоколадница <span class="recall__date">13.12.2015</span></span>
+                                    <p class="recall__text">Очень хорошее место!</p>
+                                </li>
+                                <li>
+                                    <span class="recall__author">svetlana</span>
+                                    <span class="recall__place">Шоколадница <span class="recall__date">13.12.2015</span></span>
+                                    <p class="recall__text">Очень хорошее место!</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <form action="#" class="recall__form">
+                            <legend>ВАШ ОТЗЫВ</legend>
+                            <input placeholder="Ваше имя" type="text" name="name" id="name">
+                            <input placeholder="Укажите место" type="text" name="place" id="place">
+                            <textarea placeholder="Поделитесь впечатлениями" name="text" id="text"></textarea>
+                            <button type="button">Добавить</button>
+                        </form>
                     </div>
+                </div>
                     `
                 });
         });
