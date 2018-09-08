@@ -1,14 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500&subset=cyrillic,cyrillic-ext,latin-ext');
 
-$extendBgColor: #f0f0f0;
+
 $mainfont: 'Fira Sans', sans-serif;
-$mainBgColor: #ffffff;
 $mainFontSize: 12px;
-$accentColorTwo: #9f9f9f;
 $bigFontSize: 16px;
-$accentColorOne: #c4c4c4;
-$mainFontColor: #4f4f4f;
+$extendBgColor: #f0f0f0;
+$accentColorTwo: #9f9f9f;
 $mainColor: #ff8663;
+$mainFontColo: #4f4f4f;
+$accentColorOne: #c4c4c4;
+$mainBgColor: #ffffff;
 
 @mixin placeholder {
     &::-webkit-input-placeholder { @content; }
