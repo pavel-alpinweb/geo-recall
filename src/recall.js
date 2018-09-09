@@ -23,33 +23,31 @@ export function addRecall(map) {
         let firstGeoObject = res.geoObjects.get(0);
         let addressText = firstGeoObject.geometry.getCoordinates();
 
-        placemark = new ymaps.Placemark(addressText, {
-          hintContent: "Содержимое подсказки",
-          baloonContent: "Содержимое балуна"
-        });
-
         const review = {
             place: recallPlaceVal,
             user: recallAuthorVal,
             review: recallTextVal
         };
 
+        placemark = new ymaps.Placemark(addressText, {
+            hintContent: "Содержимое подсказки",
+            baloonContent: "Содержимое балуна"
+        });
+
+        placemark.properties.set("id", Date.now());
+        placemark.properties.set("type", "placemark");  
+
         const oldReviews = placemark.properties.get("review")
           ? placemark.properties.get("review")
           : [];
 
         oldReviews.push(review);
+        placemark.properties.set("review", oldReviews);
 
         console.log(oldReviews);
-
-        placemark.properties.set("id", Date.now());
-        placemark.properties.set("review", oldReviews);
-        placemark.properties.set("type", "placemark");
-
         map.geoObjects.add(placemark);
-        // clusterer.add(placemark);
+        
         render(placemark.properties.get('review'),recallList);
-
         recallForm.reset();
       });
     }

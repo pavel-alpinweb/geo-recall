@@ -33,6 +33,7 @@ function init() {
 
     // Слушаем клик на карте.
     myMap.events.add('click', function (e) {
+        recallList.innerHTML = '';
         let coords = e.get('coords');
         getAddress(coords);
         showWindow();
