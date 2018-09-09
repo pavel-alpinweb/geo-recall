@@ -7,9 +7,9 @@ const recallForm = document.querySelector('.recall__form');
 
 export function addRecall(coords,map){
     addRecallButton.addEventListener('click',()=>{
-        let recallAuthorVal = recallAuthor.value;
-        let recallPlaceVal = recallPlace.value;
-        let recallTextVal = recallText.value;
+        const recallAuthorVal = recallAuthor.value;
+        const recallPlaceVal = recallPlace.value;
+        const recallTextVal = recallText.value;
 
         const review = {
             place: recallPlaceVal,
@@ -17,7 +17,7 @@ export function addRecall(coords,map){
             review: recallTextVal
         }
 
-        recallForm.reset();
+        
 
         const placemark = new ymaps.Placemark(coords, {
             hintContent: 'Содержимое подсказки',
@@ -30,6 +30,8 @@ export function addRecall(coords,map){
         placemark.properties.set('type', 'placemark');
 
         map.geoObjects.add(placemark);
+
+        recallForm.reset();
 
         console.log(placemark.properties.get('id'));
         console.log(placemark.properties.get('review'));
