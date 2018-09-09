@@ -17,24 +17,27 @@ export function addRecall(coords,map){
             review: recallTextVal
         }
 
-        
 
         const placemark = new ymaps.Placemark(coords, {
             hintContent: 'Содержимое подсказки',
             baloonContent: 'Содержимое балуна'
         });
         
+        const oldReviews = placemark.properties.get('review')  ? placemark.properties.get('review') : [];
+        
+        oldReviews.push(review);
 
         placemark.properties.set('id', Date.now());
-        placemark.properties.set('review', review);
+        placemark.properties.set('review', oldReviews);
         placemark.properties.set('type', 'placemark');
 
         map.geoObjects.add(placemark);
 
-        recallForm.reset();
+        // recallForm.reset();
 
         console.log(placemark.properties.get('id'));
         console.log(placemark.properties.get('review'));
+        console.log(placemark.properties.get('type'));
     });
 }
 
@@ -47,5 +50,6 @@ export function showRecall(map){
     
         console.log(properties.get('id'));
         console.log(properties.get('review'));
+        console.log(properties.get('type'));
       });
 }
