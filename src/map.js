@@ -8,6 +8,7 @@ const recallWindow = document.querySelector('#recall');
 const map = document.querySelector('#map');
 const close = document.querySelector('.close');
 const address = document.querySelector('.address');
+const recallList = document.querySelector(".recall__list");
 
 export function showWindow(){
     recallWindow.classList.remove('hide');
@@ -26,13 +27,13 @@ function init() {
 
     close.addEventListener('click',()=>{
         recallWindow.classList.add('hide'); 
+        recallList.innerHTML = '';
     });
-    
-    var coords = 'мимо';
+
 
     // Слушаем клик на карте.
     myMap.events.add('click', function (e) {
-        coords = e.get('coords');
+        let coords = e.get('coords');
         getAddress(coords);
         showWindow();
     });

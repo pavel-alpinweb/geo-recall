@@ -8,27 +8,31 @@ const addRecallButton = document.querySelector("#add-recall");
 const recallForm = document.querySelector(".recall__form");
 const recallList = document.querySelector(".recall__list");
 
+let placemark;
+
 export function addRecall(map) {
   addRecallButton.addEventListener("click", () => {
     const recallAuthorVal = recallAuthor.value;
     const recallPlaceVal = recallPlace.value;
     const recallTextVal = recallText.value;
     const address = document.querySelector(".address");
-    const review = {
-      place: recallPlaceVal,
-      user: recallAuthorVal,
-      review: recallTextVal
-    };
+    
 
     function getCoords(text) {
       ymaps.geocode(text).then(function(res) {
         let firstGeoObject = res.geoObjects.get(0);
         let addressText = firstGeoObject.geometry.getCoordinates();
 
-        const placemark = new ymaps.Placemark(addressText, {
+        placemark = new ymaps.Placemark(addressText, {
           hintContent: "Содержимое подсказки",
           baloonContent: "Содержимое балуна"
         });
+
+        const review = {
+            place: recallPlaceVal,
+            user: recallAuthorVal,
+            review: recallTextVal
+        };
 
         const oldReviews = placemark.properties.get("review")
           ? placemark.properties.get("review")
@@ -43,6 +47,7 @@ export function addRecall(map) {
         placemark.properties.set("type", "placemark");
 
         map.geoObjects.add(placemark);
+        // clusterer.add(placemark);
         render(placemark.properties.get('review'),recallList);
 
         recallForm.reset();
