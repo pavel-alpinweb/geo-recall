@@ -1,10 +1,12 @@
 import { showWindow } from "./map.js";
+import renderFn from './templates/template.hbs';
 
 const recallAuthor = document.querySelector("#name");
 const recallPlace = document.querySelector("#place");
 const recallText = document.querySelector("#text");
 const addRecallButton = document.querySelector("#add-recall");
 const recallForm = document.querySelector(".recall__form");
+const recallList = document.querySelector(".recall__list");
 
 export function addRecall(map) {
   addRecallButton.addEventListener("click", () => {
@@ -57,5 +59,12 @@ export function showRecall(map) {
     console.log(properties.get('id'));
     console.log(properties.get('review'));
     console.log(properties.get('type'));
+    render(properties.get('review'),recallList);
   });
+}
+
+
+function render(array,container){
+    const html = renderFn({ items: array });
+    container.innerHTML = html;
 }
