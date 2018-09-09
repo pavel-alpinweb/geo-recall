@@ -1,22 +1,9 @@
 <ul>
+    {{#each items}}
     <li>
-        <span class="recall__author">svetlana</span>
-        <span class="recall__place">Шоколадница <span class="recall__date">13.12.2015</span></span>
-        <p class="recall__text">Очень хорошее место!</p>
+        <span class="recall__author">{{user}}</span><br>
+        <span class="recall__place">{{place}} <span class="recall__date">13.12.2015</span></span>
+        <p class="recall__text">{{review}}</p>
     </li>
-    <li>
-        <span class="recall__author">svetlana</span>
-        <span class="recall__place">Шоколадница <span class="recall__date">13.12.2015</span></span>
-        <p class="recall__text">Очень хорошее место!</p>
-    </li>
-    <li>
-        <span class="recall__author">svetlana</span>
-        <span class="recall__place">Шоколадница <span class="recall__date">13.12.2015</span></span>
-        <p class="recall__text">Очень хорошее место!</p>
-    </li>
-    <li>
-        <span class="recall__author">svetlana</span>
-        <span class="recall__place">Шоколадница <span class="recall__date">13.12.2015</span></span>
-        <p class="recall__text">Очень хорошее место!</p>
-    </li>
+    {{/each}}
 </ul>

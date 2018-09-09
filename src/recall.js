@@ -36,11 +36,14 @@ export function addRecall(map) {
 
         oldReviews.push(review);
 
+        console.log(oldReviews);
+
         placemark.properties.set("id", Date.now());
         placemark.properties.set("review", oldReviews);
         placemark.properties.set("type", "placemark");
 
         map.geoObjects.add(placemark);
+        render(placemark.properties.get('review'),recallList);
 
         recallForm.reset();
       });
@@ -51,14 +54,10 @@ export function addRecall(map) {
 
 export function showRecall(map) {
   map.geoObjects.events.add("click", e => {
-    console.log("Marker clicked!");
     const target = e.get("target");
     const { properties } = target;
     if (properties.get("type") !== "placemark") return;
     showWindow();
-    console.log(properties.get('id'));
-    console.log(properties.get('review'));
-    console.log(properties.get('type'));
     render(properties.get('review'),recallList);
   });
 }
