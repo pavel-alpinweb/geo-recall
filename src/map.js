@@ -10,7 +10,6 @@ const close = document.querySelector('.close');
 const address = document.querySelector('.address');
 
 ymaps.ready(init);
-
 function init() {  
     var myMap = new ymaps.Map('map', {
             center: [55.753994, 37.622093],
@@ -22,14 +21,17 @@ function init() {
     close.addEventListener('click',()=>{
         recallWindow.classList.add('hide'); 
     });
+    
+    var coords = 'мимо';
 
     // Слушаем клик на карте.
     myMap.events.add('click', function (e) {
-        var coords = e.get('coords');
+        coords = e.get('coords');
         getAddress(coords);
         showWindow();
-        addRecall(coords,myMap);
     });
+
+    addRecall(myMap);
     // Определяем адрес по координатам (обратное геокодирование).
     function getAddress(coords) {
         ymaps.geocode(coords).then(function (res) {
