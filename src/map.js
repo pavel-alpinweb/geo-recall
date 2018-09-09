@@ -9,6 +9,12 @@ const map = document.querySelector('#map');
 const close = document.querySelector('.close');
 const address = document.querySelector('.address');
 
+export function showWindow(){
+    recallWindow.classList.remove('hide');
+    recallWindow.style.left = event.clientX + "px";
+    recallWindow.style.top = event.clientY + "px";
+}
+
 ymaps.ready(init);
 function init() {  
     var myMap = new ymaps.Map('map', {
@@ -39,12 +45,6 @@ function init() {
             let addressText = firstGeoObject.getAddressLine();
             address.innerHTML = addressText;
         });
-    }
-
-    function showWindow(){
-        recallWindow.classList.remove('hide');
-        recallWindow.style.left = event.clientX + "px";
-        recallWindow.style.top = event.clientY + "px";
     }
 
     showRecall(myMap);

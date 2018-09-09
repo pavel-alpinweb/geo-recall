@@ -1,3 +1,5 @@
+import { showWindow } from "./map.js";
+
 const recallAuthor = document.querySelector("#name");
 const recallPlace = document.querySelector("#place");
 const recallText = document.querySelector("#text");
@@ -51,7 +53,7 @@ export function showRecall(map) {
     const target = e.get("target");
     const { properties } = target;
     if (properties.get("type") !== "placemark") return;
-
+    showWindow();
     console.log(properties.get('id'));
     console.log(properties.get('review'));
     console.log(properties.get('type'));
