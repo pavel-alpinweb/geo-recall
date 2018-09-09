@@ -2,9 +2,14 @@ import "./styles/styles.scss";
 import { isMatching } from "./utils.js";
 import { changeClass } from "./utils.js";
 
+const recallWindow = document.querySelector('#recall');
+const map = document.querySelector('#map');
+const close = document.querySelector('.close');
+const address = document.querySelector('.address');
+
 ymaps.ready(init);
 
-function init() {
+function init() {  
     var myPlacemark,
         myMap = new ymaps.Map('map', {
             center: [55.753994, 37.622093],
@@ -13,18 +18,18 @@ function init() {
             searchControlProvider: 'yandex#search'
         });
 
-    // // Слушаем клик на карте.
-    // myMap.events.add('click', function (e) {
-    //     var coords = e.get('coords');
-    //         myPlacemark = createPlacemark(coords);
-    //         myMap.geoObjects.add(myPlacemark);
-    //         // Слушаем событие окончания перетаскивания на метке.
-    //         myPlacemark.events.add('dragend', function () {
-    //             getAddress(myPlacemark.geometry.getCoordinates());
-    //         });
+    close.addEventListener('click',()=>{
+        recallWindow.classList.add('hide'); 
+    });
 
-    //     getAddress(coords);
-    // });
+    // Слушаем клик на карте.
+    myMap.events.add('click', function (e) {
+        var coords = e.get('coords');
+        // myPlacemark = createPlacemark(coords);
+        // myMap.geoObjects.add(myPlacemark);
+        getAddress(coords);
+        showWindow();
+    });
 
     // // Создание метки.
     // function createPlacemark(coords) {
@@ -35,16 +40,18 @@ function init() {
     //     });
     // }
 
-    // // Определяем адрес по координатам (обратное геокодирование).
-    // function getAddress(coords) {
-    //     // myPlacemark.properties.set('iconCaption', 'поиск...');
-    //     ymaps.geocode(coords).then(function (res) {
-    //         var firstGeoObject = res.geoObjects.get(0);
-    //         myPlacemark.properties
-    //             .set({
-    //                 // В качестве контента балуна задаем строку с адресом объекта.
-    //                 balloonContent: firstGeoObject.getAddressLine()
-    //             });
-    //     });
-    // }
+    // Определяем адрес по координатам (обратное геокодирование).
+    function getAddress(coords) {
+        ymaps.geocode(coords).then(function (res) {
+            var firstGeoObject = res.geoObjects.get(0);
+            let addressText = firstGeoObject.getAddressLine();
+            address.innerHTML = addressText;
+        });
+    }
+
+    function showWindow(){
+        recallWindow.classList.remove('hide');
+        recallWindow.style.left = event.clientX + "px";
+        recallWindow.style.top = event.clientY + "px";
+    }
 }
