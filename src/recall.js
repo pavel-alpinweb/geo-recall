@@ -71,6 +71,7 @@ export function showRecall(map) {
     const { properties } = target;
     if (properties.get("type") !== "placemark") return;
     showWindow();
+    placemark = target;
     render(placemarkArray,recallList);
   });
 }
@@ -86,13 +87,12 @@ body.addEventListener('click',(e)=>{
 
 
 function render(mainArray,container){
-  let inArray = [];
-  let outArray = null;
+  let outArray = [];
     for (const placemarkMy of mainArray) {
       const myPlace = placemark.geometry.getCoordinates();
       const allPlace = placemarkMy.geometry.getCoordinates();
       if (myPlace[0] == allPlace[0] && myPlace[1] == allPlace[1]) {
-        outArray = inArray.concat(placemarkMy.properties.get("review"));
+        outArray = outArray.concat(placemarkMy.properties.get("review"));
         console.log(outArray);
       }
     }
