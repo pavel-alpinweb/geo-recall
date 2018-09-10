@@ -41,7 +41,7 @@ export function addRecall(map,cluster) {
             openBalloonOnClick: false
           }
         );
-        
+        placemark.id = review.id;
         placemark.properties.set("type", "placemark");  
 
         const oldReviews = placemark.properties.get("review")
@@ -73,7 +73,7 @@ export function showRecall(map) {
 body.addEventListener('click',(e)=>{
   if (e.target.classList.contains('placemarkLink')) {
     const placemarkId = e.target.getAttribute('data-id');
-    console.log(placemarksArray);
+    
   }
 });
 
