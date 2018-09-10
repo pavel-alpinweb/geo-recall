@@ -19,7 +19,11 @@ export function addRecall(map,cluster) {
     const recallPlaceVal = recallPlace.value;
     const recallTextVal = recallText.value;
     const address = document.querySelector(".address");
-    
+
+    if(recallAuthorVal == '' || recallPlaceVal == '' || recallTextVal == ''){
+      alert('Все поля должны быть заполнены');
+      return;
+    }
 
     function getCoords(text) {
       ymaps.geocode(text).then(function(res) {
@@ -69,6 +73,7 @@ export function showRecall(map) {
   map.geoObjects.events.add("click", e => {
     const target = e.get("target");
     placemark = target;
+
     if (target.properties.get("type") !== "placemark") return;
     showWindow();
     render(placemarkArray,recallList);
@@ -79,6 +84,7 @@ body.addEventListener('click',(e)=>{
   if (e.target.classList.contains('placemarkLink')) {
     const placemarkId = e.target.getAttribute('data-id');
     placemark = placemarkArray[placemarkId];
+
     showWindow();
     render(placemarkArray,recallList);
   }
