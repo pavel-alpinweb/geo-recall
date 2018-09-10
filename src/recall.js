@@ -25,12 +25,12 @@ export function addRecall(map,cluster) {
       ymaps.geocode(text).then(function(res) {
         let firstGeoObject = res.geoObjects.get(0);
         let addressText = firstGeoObject.geometry.getCoordinates();
-
+        const dateNow = new Date();
         const review = {
             place: recallPlaceVal,
             user: recallAuthorVal,
             review: recallTextVal,
-            time: Date.now(),
+            time: `${dateNow.getDate()}.${dateNow.getUTCMonth() + 1}.${dateNow.getFullYear()}`,
             id: placemarkId++
         };
 
@@ -68,10 +68,9 @@ export function addRecall(map,cluster) {
 export function showRecall(map) {
   map.geoObjects.events.add("click", e => {
     const target = e.get("target");
-    const { properties } = target;
-    if (properties.get("type") !== "placemark") return;
-    showWindow();
     placemark = target;
+    if (target.properties.get("type") !== "placemark") return;
+    showWindow();
     render(placemarkArray,recallList);
   });
 }
@@ -93,7 +92,6 @@ function render(mainArray,container){
       const allPlace = placemarkMy.geometry.getCoordinates();
       if (myPlace[0] == allPlace[0] && myPlace[1] == allPlace[1]) {
         outArray = outArray.concat(placemarkMy.properties.get("review"));
-        console.log(outArray);
       }
     }
     const html = renderFn({ items: outArray });
