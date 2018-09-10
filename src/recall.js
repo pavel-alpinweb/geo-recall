@@ -44,9 +44,7 @@ export function addRecall(map,cluster) {
         );
         placemark.properties.set("type", "placemark");  
 
-        const oldReviews = placemark.properties.get("review")
-          ? placemark.properties.get("review")
-          : [];
+        const oldReviews = [];
 
         oldReviews.push(review);
 
