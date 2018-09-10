@@ -10,6 +10,8 @@ const recallList = document.querySelector(".recall__list");
 const body = document.body;
 
 let placemark;
+let placemarkId = 0;
+let placemarkArray = [];
 
 export function addRecall(map,cluster) {
   addRecallButton.addEventListener("click", () => {
@@ -28,20 +30,18 @@ export function addRecall(map,cluster) {
             place: recallPlaceVal,
             user: recallAuthorVal,
             review: recallTextVal,
-            id: Date.now(),
-            time: Date.now()
+            time: Date.now(),
+            id: placemarkId++
         };
 
         placemark = new ymaps.Placemark(addressText, {
             balloonContentHeader: review.place,
             balloonContentBody: `${review.review} <br> <a href="#" class="placemarkLink" data-id="${review.id}">${address.innerHTML}</a>`,
-            balloonContentFooter: review.time,
-            placemarkId: review.id
+            balloonContentFooter: review.time
           },{
             openBalloonOnClick: false
           }
         );
-        placemark.id = review.id;
         placemark.properties.set("type", "placemark");  
 
         const oldReviews = placemark.properties.get("review")
@@ -49,10 +49,17 @@ export function addRecall(map,cluster) {
           : [];
 
         oldReviews.push(review);
+
         placemark.properties.set("review", oldReviews);
+
         map.geoObjects.add(placemark);
+
         cluster.add(placemark);
+
+        placemarkArray.push(placemark);
+
         render(placemark.properties.get('review'),recallList);
+
         recallForm.reset();
       });
     }
@@ -73,7 +80,9 @@ export function showRecall(map) {
 body.addEventListener('click',(e)=>{
   if (e.target.classList.contains('placemarkLink')) {
     const placemarkId = e.target.getAttribute('data-id');
-    
+    const myPlacemark = placemarkArray[placemarkId];
+    showWindow();
+    render(myPlacemark.properties.get('review'),recallList);
   }
 });
 
