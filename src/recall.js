@@ -35,7 +35,8 @@ export function addRecall(map,cluster) {
             user: recallAuthorVal,
             review: recallTextVal,
             time: `${dateNow.getDate()}.${dateNow.getUTCMonth() + 1}.${dateNow.getFullYear()}`,
-            id: placemarkId++
+            id: placemarkId++,
+            costyle: address.innerHTML
         };
 
         placemark = new ymaps.Placemark(addressText, {
@@ -73,7 +74,10 @@ export function showRecall(map) {
   map.geoObjects.events.add("click", e => {
     const target = e.get("target");
     placemark = target;
-
+    const costyle = target.properties.get("review")[0].costyle;
+    const address = document.querySelector(".address");
+    console.log(costyle);
+    address.innerHTML = costyle;
     if (target.properties.get("type") !== "placemark") return;
     showWindow();
     render(placemarkArray,recallList);
@@ -84,7 +88,10 @@ body.addEventListener('click',(e)=>{
   if (e.target.classList.contains('placemarkLink')) {
     const placemarkId = e.target.getAttribute('data-id');
     placemark = placemarkArray[placemarkId];
-
+    const costyle = placemark.properties.get("review")[0].costyle;
+    const address = document.querySelector(".address");
+    console.log(costyle);
+    address.innerHTML = costyle;
     showWindow();
     render(placemarkArray,recallList);
   }
