@@ -23,7 +23,18 @@ function init() {
             zoom: 9
         }, {
             searchControlProvider: 'yandex#search'
-        });
+    });
+
+    const clusterer = new ymaps.Clusterer({ 
+        clusterDisableClickZoom: true,
+        clusterOpenBalloonOnClick: true,
+        clusterBalloonContentLayout: 'cluster#balloonCarousel',
+        clusterBalloonPanelMaxMapArea: 0,
+        clusterBalloonContentLayoutWidth: 200,
+        clusterBalloonContentLayoutHeight: 130,
+        clusterBalloonPagerSize: 5
+    });
+    myMap.geoObjects.add(clusterer);
 
     close.addEventListener('click',()=>{
         recallWindow.classList.add('hide'); 
@@ -39,7 +50,7 @@ function init() {
         showWindow();
     });
 
-    addRecall(myMap);
+    addRecall(myMap,clusterer);
     // Определяем адрес по координатам (обратное геокодирование).
     function getAddress(coords) {
         ymaps.geocode(coords).then(function (res) {
