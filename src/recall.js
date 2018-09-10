@@ -56,7 +56,7 @@ export function addRecall(map,cluster) {
 
         placemarkArray.push(placemark);
 
-        render(placemark.properties.get('review'),recallList);
+        render(placemarkArray,recallList);
 
         recallForm.reset();
       });
@@ -71,21 +71,31 @@ export function showRecall(map) {
     const { properties } = target;
     if (properties.get("type") !== "placemark") return;
     showWindow();
-    render(properties.get('review'),recallList);
+    render(placemarkArray,recallList);
   });
 }
 
 body.addEventListener('click',(e)=>{
   if (e.target.classList.contains('placemarkLink')) {
     const placemarkId = e.target.getAttribute('data-id');
-    const myPlacemark = placemarkArray[placemarkId];
+    placemark = placemarkArray[placemarkId];
     showWindow();
-    render(myPlacemark.properties.get('review'),recallList);
+    render(placemarkArray,recallList);
   }
 });
 
 
-function render(array,container){
-    const html = renderFn({ items: array });
+function render(mainArray,container){
+  let inArray = [];
+  let outArray = null;
+    for (const placemarkMy of mainArray) {
+      const myPlace = placemark.geometry.getCoordinates();
+      const allPlace = placemarkMy.geometry.getCoordinates();
+      if (myPlace[0] == allPlace[0] && myPlace[1] == allPlace[1]) {
+        outArray = inArray.concat(placemarkMy.properties.get("review"));
+        console.log(outArray);
+      }
+    }
+    const html = renderFn({ items: outArray });
     container.innerHTML = html;
 }
