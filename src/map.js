@@ -23,7 +23,7 @@ function init() {
             zoom: 9
         }, {
             searchControlProvider: 'yandex#search'
-    });
+        });
 
     const clusterer = new ymaps.Clusterer({ 
         clusterDisableClickZoom: true,
